@@ -1,19 +1,6 @@
 
 // (Based on Ethernet's WebClient Example)
-
-    /*about communication*/
-/*#include "WiFly.h"
-#include "Credentials.h"
-#include <Wire.h>
-byte server[] = { 66, 249, 89, 104 }; // Google
-
-Client client(server, 80);
-//ip del ordenador
-WiFlyClient client("10.164.3.182", 80);
-
-byte servidor[]={192, 168, 1, 132};
-*/
-
+/*Versão sem wifi e com níveis apenas com luz*/
 
     /*about toy*/
 #include "Adafruit_Trellis.h"
@@ -120,13 +107,6 @@ void setup() {
   //2 matrices de leds
   trellis.begin(0x70, 0x71);
   Serial.println("va a entrar.");
-  
-/*    WiFly.begin(); 
- if (!WiFly.join(ssid, passphrase)) {
-   Serial.println("Association failed.");
- 
-  }
-*/
   
   //etapa inicial ao carregar o projeto no arduino: todos os leds acendem e apagam em seguida
   // light up all the LEDs in order - (pt: acende todos os leds)
@@ -1019,16 +999,11 @@ void juegoSinRepeticiones(int secuencia1[],boolean sinLuz){
               terminar=true;
               guardarSecuencia();
         //se reproducen las dos secuencias lo pulsado y lo correcto con parpadeo
-        // leerSecuencia(estadoPul, true);
-        // reproducirPulsadores(secuencia1);
-              //correctoNivel = comprobarSecuencia(secuencia1, nivel);
-              //if (correctoNivel==0){
               if (comprobarSecuencia(secuencia1, nivel) == false){  
                 terminar= false;
                 correctoNivel=nivel;
               } else{
       //mirar secuencia y terminar repeticiones igual a repetir secuencia
-      //  correctoNivel=correctoNivel + nivel;
                 correctoNivel=1 + nivel;
                 Serial.println("correcto nivel: ");
                 Serial.println(correctoNivel);
@@ -1226,13 +1201,9 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
               guardarBuclesVarios();
               terminar=true;
               // se reproducen las dos secuencias lo pulsado y lo correcto con parpadeo
-              // leerSecuencia(estadoPul, true);
-              // reproducirPulsadores(secuencia1);
-          //    correctoNivel = comprobarSecuencia(secuencia1, nivel);
               reinicioArrayBucle();
               Serial.println("sale al principal");
-            //  if (correctoNivel==0){
-                          if (comprobarSecuencia(secuencia1, nivel) == false){  
+              if (comprobarSecuencia(secuencia1, nivel) == false){  
 
                 terminar= false;
               } else {
@@ -1618,10 +1589,6 @@ void  guardarArrayBucles(){
         }
         //  if(arrayBucle[finBucle]==16){
         incremento = 16;
-        //   }
-        // incremento = incremento + 4;
-        //Serial.print("el incremento es =");
-        //Serial.println(incremento);
       }
       i = finBucle + numVeces;
       numVeces = 0;
@@ -1696,8 +1663,6 @@ void guardarBuclesVarios(){
           estadoPul[arrayBucle [h]-incremento]=1;
         }
         incremento = incremento + 4;
-        //Serial.print("el incremento es =");
-        //Serial.println(incremento);
       }
       i = finBucle + numVeces;
       numVeces = 0;
@@ -1897,11 +1862,6 @@ void subidaDatos(int nivel,int bloque,int fallos,int secuencia1 [],int estadoPul
     respuesta = respuesta ;
   }
 
-/*      WiFly.begin(); 
-  if (!WiFly.join(ssid, passphrase)) {
-    Serial.println("Association failed.");
-  }
-*/
   Serial.println("entra en conexion");
   Serial.print("nivel ");  
   Serial.println(nivel);
@@ -1921,42 +1881,7 @@ void subidaDatos(int nivel,int bloque,int fallos,int secuencia1 [],int estadoPul
   Serial.println(bucle);
   Serial.println("conecting");
 
-/*  if (client.connect()) {
-    Serial.println("connected");
-    client.print("GET /arduino/salvardatos.php?");
-    client.print("nivel=");
-    client.print(nivel);
-    client.print("&bloque=");
-    client.print(bloque);
-    client.print("&fallos=");
-    client.print(fallos);
-    client.print("&iluminacion=");
-    client.print(iluminacion);
-    client.print("&respuesta=");
-    client.print(respuesta);
-    client.print("&resultado=");
-    client.print(resultado);
-    client.print("&lecturas=");
-    client.print(lecturas);
-    client.print("&bucle=");
-    client.println(bucle);
-    client.println();
-  } else {
-    Serial.println("connection failed");
-  }
-   
-  if (client.available()) {
-    char c = client.read();
-    Serial.print(c);
-  }
-  
-  if (!client.connected()) {
-    Serial.println();
-    Serial.println("disconnecting.");
-    client.stop();
-    for(;;);
-  }  
-*/
+
 }
   
 
