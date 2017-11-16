@@ -1,6 +1,27 @@
+//#include <TFT.h>
+
+#include <gfxfont.h>
+#include <Adafruit_SPITFT.h>
+#include <Adafruit_SPITFT_Macros.h>
+
+
 
 // (Based on Ethernet's WebClient Example)
 /*Versão sem wifi e com níveis apenas com luz*/
+
+    /*about LCD*/
+      #include <SPI.h>
+      #include <Adafruit_GFX.h>
+      #include <Adafruit_ILI9341.h>
+      
+      // For the Adafruit shield, these are the default.
+      #define TFT_DC 9
+      #define TFT_CS 10
+      
+      // Use hardware SPI (on Uno, #13, #12, #11) and the above for CS/DC
+      Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
+      // If using the breakout, change pins as desired
+      //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
 
     /*about toy*/
 #include "Adafruit_Trellis.h"
@@ -19,7 +40,6 @@ Adafruit_TrellisSet trellis = Adafruit_TrellisSet (&matrix0, &matrix1);
 #define numKeys (NUMTRELLIS * 16)
 
 #define INTPIN A8
-
 
     /* declaración de variables sonidos */
 int spk=47;                          // altavoz a GND y pin 13
@@ -100,6 +120,29 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
+        //LCD configuration
+        tft.begin();
+        //variavéis interface inicial
+        tft.fillScreen(ILI9341_BLACK); //cor de fundo
+        tft.setRotation(1); //rotação da tela
+        int           cx = tft.width()  / 8, //variavel x horizontal
+                      cy = 1*tft.height() / 6;//variavel y vertical
+
+    
+        // read diagnostics (optional but can help debug problems)
+        uint8_t x = tft.readcommand8(ILI9341_RDMODE);
+        Serial.print("Display Power Mode: 0x"); Serial.println(x, HEX);
+        x = tft.readcommand8(ILI9341_RDMADCTL);
+        Serial.print("MADCTL Mode: 0x"); Serial.println(x, HEX);
+        x = tft.readcommand8(ILI9341_RDPIXFMT);
+        Serial.print("Pixel Format: 0x"); Serial.println(x, HEX);
+        x = tft.readcommand8(ILI9341_RDIMGFMT);
+        Serial.print("Image Format: 0x"); Serial.println(x, HEX);
+        x = tft.readcommand8(ILI9341_RDSELFDIAG);
+        Serial.print("Self Diagnostic: 0x"); Serial.println(x, HEX); 
+
+
+
   // INT pin requires a pullup
   pinMode(INTPIN, INPUT);
   digitalWrite(INTPIN, HIGH);
@@ -107,22 +150,63 @@ void setup() {
   //2 matrices de leds
   trellis.begin(0x70, 0x71);
   Serial.println("va a entrar.");
+
+        //interface inicial
+/*        tft.fillScreen(ILI9341_BLACK); //cor de fundo
+        tft.setRotation(1); //rotação da tela
+        int           cx = tft.width()  / 8, //variavel x horizontal
+                      cy = 1*tft.height() / 6;//variavel y vertical
+*/      
+        Serial.print(F("Text                     "));
+        tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(3);
+        tft.println("WELCOME TO \n BEATKIDS!");
+      
+        drawMatriz(cx, cy, 1.5, ILI9341_RED);
+        drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
+        drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
+        drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
+
   
   //etapa inicial ao carregar o projeto no arduino: todos os leds acendem e apagam em seguida
+  //WELCOME TO BEATKIDS
+  for(int j=0;j<8;j++){
+    colorMatriz2(cx,cy,5.5,j,ILI9341_WHITE);
+    delay(50);
+    colorMatriz2(cx,cy,4.5,j,ILI9341_BLUE);
+    delay(50);
+    colorMatriz1(cx,cy,2.5,j,ILI9341_GREEN);
+    delay(50);
+    colorMatriz1(cx,cy,1.5,j,ILI9341_RED);
+    delay(50);
+  }
   // light up all the LEDs in order - (pt: acende todos os leds)
   for (int i = numKeys; i >= 0; i--) {
     trellis.setLED(i);
     trellis.writeDisplay();
     delay(50);
   }
-  
+
+  //A IMAGEM PODIA ACENDER E APAGAR QUADRADINHOS AQUI
   // then turn them off - (pt: apaga todos os leds)
   for (int i = numKeys; i >= 0; i--) {
     trellis.clrLED(i);
     trellis.writeDisplay();
     delay(50);
   }
-  
+  for(int j=0;j<8;j++){
+    colorMatriz2(cx,cy,5.5,j,ILI9341_BLACK);
+    drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
+    delay(50);
+    colorMatriz2(cx,cy,4.5,j,ILI9341_BLACK);
+    drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
+    delay(50);
+    colorMatriz1(cx,cy,2.5,j,ILI9341_BLACK);
+    drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
+    delay(50);
+    colorMatriz1(cx,cy,1.5,j,ILI9341_BLACK);
+    drawMatriz(cx, cy, 1.5, ILI9341_RED);
+    delay(50);
+  }   
   delay(100);
 }
 
@@ -133,6 +217,34 @@ void loop() {
   juegoMain();
   Serial.println("juegomain loop");
 }
+
+        void colorMatriz1(int cx, int cy, float n, int a, uint16_t color){
+          for (float i=a;i<(a+1);i+=0.1){
+            tft.drawLine(a*cx, n*cy, i*cx, (n+1)*cy, color);
+          }
+          a*cx, n*cy, (a+1)*cx, (n+1)*cy, color;
+          for (float i=n;i<(n+1);i+=0.1){
+            tft.drawLine(a*cx, n*cy, (a+1)*cx, i*cy, color);
+          }    
+        }
+        
+        void colorMatriz2(int cx, int cy, float n, int a, uint16_t color){
+          for (float i=a;i<(a+1);i+=0.1){
+            tft.drawLine(a*cx, n*cy, i*cx, (n-1)*cy, color);
+          }
+          a*cx, n*cy, (a+1)*cx, (n-1)*cy, color;
+          for (float i=n;i>(n-1);i-=0.1){
+            tft.drawLine(a*cx, n*cy, (a+1)*cx, i*cy, color);
+          }    
+        }    
+        
+        
+        void drawMatriz(int cx, int cy, float n, uint16_t color){
+          for(int i=0;i<8;i++){
+            tft.drawRect(i*cx, n*cy, cx, 1*cy, color);
+          }
+        }
+
 
 
 //seleeccion del nivel del juego que se quiere jugar
