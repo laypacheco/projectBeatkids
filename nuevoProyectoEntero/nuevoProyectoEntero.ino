@@ -254,7 +254,6 @@ void juegoMain(){
   
   //interface 03
   thirdInterface();
-  delay(10000);
   
   while(!terminar){ //enquanto não terminar fazer essa sequência
     delay(30); // 30ms delay is required, dont remove me!
@@ -384,7 +383,7 @@ void bloque00(int nivel){
       //sequência
             //interface 04
             fourthInterface();
-            delay(5000);
+            delay(1000);
       int secuencia1 []={0,0,1,0,
                          0,1,0,0,
                          1,0,0,0, 
@@ -1394,6 +1393,7 @@ void leerSecuencia(int secuencia1[], boolean sinLuz){
       }
       delay(100);
     }
+    colorSequence(secuencia1,sinLuz);
   } else  {
     Serial.println("sin luz false");
     for (int i = numKeys; i >= 0; i--) {
@@ -1430,7 +1430,10 @@ void leerSecuencia(int secuencia1[], boolean sinLuz){
       trellis.clrLED(i);
       trellis.writeDisplay();
     }
+    colorSequence(secuencia1,sinLuz); 
   }
+
+
 }
       
   
@@ -2140,12 +2143,21 @@ void thirdInterface(){
 }
 
 void fourthInterface(){
-  tft.setRotation(1); //rotação da tela
+tft.setRotation(1); //rotação da tela
   tft.fillScreen(ILI9341_BLACK); //cor de fundo
   tft.setCursor(0, 0);
-    //texto na tela
-  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(4);
-  tft.println("REPEAT \nTHE \nSEQUENCE!");
+      //texto na tela
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+  tft.println("SEQUENCE TO REPEAT!");
+
+  int           cx = tft.width()  / 8, //variavel x horizontal
+                cy = 1*tft.height() / 6;//variavel y vertical
+
+  //desenho das linhas da matriz
+  drawMatriz(cx, cy, 1.5, ILI9341_RED);
+  drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
+  drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
+  drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
 
 }
 
@@ -2179,3 +2191,52 @@ void fifthInterface(){
   colorMatriz2(cx,cy,5.8,3,ILI9341_YELLOW);
   colorMatriz2(cx,cy,5.8,0,ILI9341_PINK);
 }
+
+void colorSequence(int secuencia1[], boolean sinLuz){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+      //texto na tela
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+  tft.println("SEQUENCE TO REPEAT!");
+
+  int           cx = tft.width()  / 8, //variavel x horizontal
+                cy = 1*tft.height() / 6;//variavel y vertical
+
+  //desenho das linhas da matriz
+  drawMatriz(cx, cy, 1.5, ILI9341_RED);
+  drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
+  drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
+  drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
+
+  if(sinLuz == 0){ //without light 
+    for(int i=32;i>=0;i--){
+      if(secuencia1[i] == 1 and i == 30)         {colorMatriz2(cx,cy,4.5,0,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,0,ILI9341_BLUE);}
+      else if(secuencia1[i] == 1 and i == 29)    {colorMatriz1(cx,cy,2.5,0,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,0,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 28)    {colorMatriz1(cx,cy,1.5,0,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,0,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 26)    {colorMatriz2(cx,cy,4.5,1,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,1,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 25)    {colorMatriz1(cx,cy,2.5,1,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,1,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 24)    {colorMatriz1(cx,cy,1.5,1,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,1,ILI9341_RED);} 
+      else if(secuencia1[i] == 1 and i == 22)    {colorMatriz2(cx,cy,4.5,2,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,2,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 21)   {colorMatriz1(cx,cy,2.5,2,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,2,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 20)   {colorMatriz1(cx,cy,1.5,2,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,2,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 18)   {colorMatriz2(cx,cy,4.5,3,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,3,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 17)   {colorMatriz1(cx,cy,2.5,3,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,3,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 16)   {colorMatriz1(cx,cy,1.5,3,ILI9341_BLACK);delay(500); colorMatriz1(cx,cy,1.5,3,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 14)   {colorMatriz2(cx,cy,4.5,4,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,4,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 13)   {colorMatriz1(cx,cy,2.5,4,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,4,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 12)   {colorMatriz1(cx,cy,1.5,4,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,4,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 10)   {colorMatriz2(cx,cy,4.5,5,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,5,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 9)   {colorMatriz1(cx,cy,2.5,5,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,5,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 8)   {colorMatriz1(cx,cy,1.5,5,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,5,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 6)   {colorMatriz2(cx,cy,4.5,6,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,6,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 5)   {colorMatriz1(cx,cy,2.5,6,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,6,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 4)   {colorMatriz1(cx,cy,1.5,6,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,6,ILI9341_RED);}
+      else if(secuencia1[i] == 1 and i == 2)   {colorMatriz2(cx,cy,4.5,7,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,7,ILI9341_BLUE);} 
+      else if(secuencia1[i] == 1 and i == 1)   {colorMatriz1(cx,cy,2.5,7,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,7,ILI9341_GREEN);} 
+      else if(secuencia1[i] == 1 and i == 0)   {colorMatriz1(cx,cy,1.5,7,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,7,ILI9341_RED);}
+      else{}
+    }
+  }
+  delay(500);
+}  
