@@ -152,12 +152,6 @@ void setup() {
   Serial.println("va a entrar.");
 
         //interface inicial
-/*        tft.fillScreen(ILI9341_BLACK); //cor de fundo
-        tft.setRotation(1); //rotação da tela
-        int           cx = tft.width()  / 8, //variavel x horizontal
-                      cy = 1*tft.height() / 6;//variavel y vertical
-*/      
-        Serial.print(F("Text                     "));
         tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(3);
         tft.println("WELCOME TO \n BEATKIDS!");
       
@@ -249,10 +243,19 @@ void loop() {
 
 //seleeccion del nivel del juego que se quiere jugar
 void juegoMain(){
+
   Serial.println("entra en juegoForMain");
   terminar = false; //o jogo não terminou 
   //los botones para la seleccion son el 3 y el 7 en binario
 
+  //interface 02
+  secondInterface();
+  delay(10000);
+  
+  //interface 03
+  thirdInterface();
+  delay(10000);
+  
   while(!terminar){ //enquanto não terminar fazer essa sequência
     delay(30); // 30ms delay is required, dont remove me!
     if (MODE == LATCHING) { //se o mode é latching
@@ -292,7 +295,7 @@ void juegoMain(){
 
 
 void seleccionNivel(){
-
+  
   //leds de seleção de nível; confere se eles foram pulsado
   int once = trellis.isLED(11); //confere se o led7 foi selecionado 
   int siete= trellis.isLED(7); //confere se o led11 foi selecionado
@@ -333,6 +336,8 @@ void seleccionNivel(){
 
 
 void bloquesNiveles(int nivel){
+
+  
   Serial.print("el boque es: ");
   Serial.println(bloque);
   Serial.print("nivel: ");
@@ -377,6 +382,9 @@ void bloque00(int nivel){
       boolean sinLuz=false; //é com luz
       iluminacion = 1;
       //sequência
+            //interface 04
+            fourthInterface();
+            delay(5000);
       int secuencia1 []={0,0,1,0,
                          0,1,0,0,
                          1,0,0,0, 
@@ -385,7 +393,6 @@ void bloque00(int nivel){
                          0,1,0,0,
                          1,0,0,0, 
                          0,0,1,0};
-
       juegoSinRepeticiones(secuencia1, sinLuz);
       break;
     }
@@ -1070,6 +1077,10 @@ void juegoSinRepeticiones(int secuencia1[],boolean sinLuz){
   terminar = false;
   int correctoNivel= nivel;
   leerSecuencia(secuencia1, sinLuz);
+  delay(5000);
+        //interface 05
+        fifthInterface();  
+
 
   //mientras no se pulse terminar
   while(!terminar){
@@ -2063,4 +2074,108 @@ void incorrecto(){
   //nota(d[2],900);noTone(spk);delay(50);
   //nota(c[2],150);noTone(spk);delay(50);
   //nota(b[1],150);noTone(spk);delay(50);
+}
+
+void secondInterface(){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+
+  int           cx = tft.width()  / 8, //variavel x horizontal
+                cy = 1*tft.height() / 6;//variavel y vertical
+
+  //texto na tela
+  Serial.print(F("Text                     "));
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+  tft.println("CHOOSE YOUR LEVEL!");
+  tft.setTextSize(2);
+  tft.setTextColor(ILI9341_PINK); tft.print("0");
+  tft.setTextColor(ILI9341_YELLOW); tft.print("0");
+  tft.setTextColor(ILI9341_WHITE); tft.print(", ");
+  tft.setTextColor(ILI9341_PINK); tft.print("0");
+  tft.setTextColor(ILI9341_YELLOW); tft.print("1");
+  tft.setTextColor(ILI9341_WHITE); tft.print(", ");
+  tft.setTextColor(ILI9341_PINK); tft.print("1");
+  tft.setTextColor(ILI9341_YELLOW); tft.print("0 ");
+  tft.setTextColor(ILI9341_WHITE); tft.print("OR ");
+  tft.setTextColor(ILI9341_PINK); tft.print("1");
+  tft.setTextColor(ILI9341_YELLOW); tft.print("1\n");
+  tft.setTextColor(ILI9341_WHITE); tft.println("0 = NOT PRESS \n1 = PRESS");
+
+  //desenho das linhas da matriz
+  drawMatriz(cx, cy, 1.8, ILI9341_RED);
+  drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+  drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+
+  drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+
+  //colorindo o botão correto
+  colorMatriz2(cx,cy,5.8,5,ILI9341_PINK);
+  colorMatriz2(cx,cy,5.8,6,ILI9341_YELLOW);
+  
+}
+
+void thirdInterface(){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+
+  int           cx = tft.width()  / 8, //variavel x horizontal
+                cy = 1*tft.height() / 6;//variavel y vertical
+
+  //texto na tela
+  Serial.print(F("Text                     "));
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+  tft.print("PAY ATTENTION IN THE\nSEQUENCE.");
+  tft.setTextColor(ILI9341_YELLOW); tft.print("CLICK ON THE\nBOTTON TO BEGIN.");
+  //desenho das linhas da matriz
+  drawMatriz(cx, cy, 1.5, ILI9341_RED);
+  drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
+  drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
+  drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
+
+  //colorindo o botão correto
+  colorMatriz2(cx,cy,5.5,7,ILI9341_YELLOW);
+    
+}
+
+void fourthInterface(){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+    //texto na tela
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(4);
+  tft.println("REPEAT \nTHE \nSEQUENCE!");
+
+}
+
+void fifthInterface(){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+
+  int           cx = tft.width()  / 8, //variavel x horizontal
+                cy = 1*tft.height() / 6;//variavel y vertical
+
+  //texto na tela
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+  tft.println("PRESS: ");
+  tft.setTextColor(ILI9341_MAROON);    tft.setTextSize(2);
+  tft.println("TO PASS LEVEL.");
+  tft.setTextColor(ILI9341_YELLOW);    tft.setTextSize(2);
+  tft.println("TO CONFIRM SEQUENCE.");
+  tft.setTextColor(ILI9341_PINK);    tft.setTextSize(2);
+  tft.println("TO REPEAT SEQUENCE.");
+
+  //desenho das linhas da matriz
+  drawMatriz(cx, cy, 1.8, ILI9341_RED);
+  drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+  drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+
+  drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+
+  //colorindo o botão correto
+  colorMatriz2(cx,cy,5.8,4,ILI9341_MAROON);
+  colorMatriz2(cx,cy,5.8,3,ILI9341_YELLOW);
+  colorMatriz2(cx,cy,5.8,0,ILI9341_PINK);
 }
