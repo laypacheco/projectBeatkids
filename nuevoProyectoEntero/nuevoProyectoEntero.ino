@@ -178,7 +178,6 @@ void setup() {
     delay(50);
   }
 
-  //A IMAGEM PODIA ACENDER E APAGAR QUADRADINHOS AQUI
   // then turn them off - (pt: apaga todos os leds)
   for (int i = numKeys; i >= 0; i--) {
     trellis.clrLED(i);
@@ -243,13 +242,8 @@ void juegoMain(){
   terminar = false; //o jogo não terminou 
   //los botones para la seleccion son el 3 y el 7 en binario
 
-  //interface 02
-  chooseLevelInterface();
-  delay(10000);
-  
-  //interface 03
-  beginGameInterface();
-  
+   chooseLevelInterface(); //interface 02: seleção dos níveis
+   
   while(!terminar){ //enquanto não terminar fazer essa sequência
     delay(30); // 30ms delay is required, dont remove me!
     if (MODE == LATCHING) { //se o mode é latching
@@ -265,8 +259,7 @@ void juegoMain(){
               Serial.println("TERMINADO PULSADORES");
               trellis.setLED(3);
               trellis.writeDisplay();
-      
-              delay(100);
+              delay(1000);
               trellis.clrLED(3);
               trellis.writeDisplay();
               terminar=true;
@@ -560,7 +553,6 @@ void bloque01(int nivel){
       Serial.println(bloque);
       boolean sinLuz=false;
       iluminacion = 1;
-//      showSequenceInterface(); //interface 04: sequence to repeat
       delay(1000);
       int secuencia1 []={1,0,0,0,
                          1,0,0,0,
@@ -1175,7 +1167,8 @@ void juegoSinRepeticiones(int secuencia1[],boolean sinLuz){
                 Serial.println(" nivel: ");
                 Serial.println(nivel);
               }
-              bloquesNiveles(correctoNivel);
+              //bloquesNiveles(correctoNivel);
+              bloquesNiveles(nivel);
               delay(1000);
             }
       // Alternate the LED
@@ -1201,7 +1194,9 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
   terminar = false;
   int posicion = 0;
   int correctoNivel;
-  leerSecuencia(secuencia1, sinLuz);
+  leerSecuencia(secuencia1, sinLuz); //aparece sequência nos botões e na tela
+  delay(5000);
+  passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
 
   //mientras no se pulse terminar
   while(!terminar){
@@ -1215,7 +1210,9 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
           if (trellis.justPressed(i)) {
             Serial.print(i);
             //leer secuencia otra vez
-            if(i==31){
+            if(i==31){ //se apertou o botão para repetir a sequência
+              showInterface(0); //interface para repetição de sequência
+              delay(2000);
               Serial.println("leer secuencia otra vez");
               //se suma una lectura
               lecturas= lecturas + 1;
@@ -1226,13 +1223,12 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               delay(100);
               trellis.clrLED(31);
               trellis.writeDisplay();
-              leerSecuencia(secuencia1, sinLuz);
+              leerSecuencia(secuencia1, sinLuz); //repetição da sequência
+              passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
             }
-            
             //si no es boton de control controles, guardar en array
             if(i!=3 || i!=7 || i!=11 || i!=15|| i!=19|| i!=31 ){
               Serial.print("entra en no botones de control");
-              
               //se a usado el boton inicio bucle
               if(i==27){
                 bucle =1;
@@ -1241,7 +1237,9 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               posicion= posicion + 1;
               arrayBucle[posicion]= i;
             } 
-            if (i==19){
+            if (i==19){//se apertou botão de que terminou a sequência
+              showInterface(2); //interface para conferência das sequências
+              delay(2000);
               //si se a pulsado el boton 27 es que a realizado la secuencia mediane los botones de bucles
               if(usoBucle){
                 guardarArrayBucles();
@@ -1264,8 +1262,7 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               reinicioArrayBucle();
               Serial.println("sale al principal");
  //             if (correctoNivel==0){
-               if (comprobarSecuencia(secuencia1, nivel) == false){  
-
+              if (comprobarSecuencia(secuencia1, nivel) == false){  
                 correctoNivel= nivel;
                 terminar= false;
               } else {
@@ -1273,8 +1270,11 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
                 correctoNivel=correctoNivel + nivel;
               }
               Serial.println(correctoNivel);
+              bloquesNiveles(correctoNivel);
             } 
-            if (i==15) {
+            if (i==15) {//se apertou o botão para ir para o próximo bloco
+              showInterface(1); //interface para pular pro próximo nível
+              delay(2000);
               Serial.print("entra en siguiente");
               reinicioArrayBucle();
               terminar = true;
@@ -1293,7 +1293,7 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
       }
     }   
   }
-  bloquesNiveles(correctoNivel);
+  //bloquesNiveles(correctoNivel);
   // bloque00(correctoNivel);
   delay(1000);
 }
@@ -2016,7 +2016,7 @@ void comprobarDosSecuencias(int secuencia1[], int solucionCorrecta[]){
     }
     delay(100);
   }
-  colorSequence(solucionCorrecta,sinLuz); //aparece sequência na tela
+  colorSequenceGame(solucionCorrecta,sinLuz); //aparece sequência na tela
   
   Serial.print("sale de la funcion");
   // poner todas las luces apagadas a la vez
@@ -2136,9 +2136,8 @@ void chooseLevelInterface(){
 
   //texto na tela
   Serial.print(F("Text                     "));
-  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
-  tft.println("CHOOSE YOUR LEVEL!");
-  tft.setTextSize(2);
+  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);  tft.print("PRESS YOUR LEVEL AND AFTER "); 
+  tft.setTextColor(ILI9341_MAROON);  tft.print("PRESS TO BEGIN"); tft.print("!\n");
   tft.setTextColor(ILI9341_PINK); tft.print("0");
   tft.setTextColor(ILI9341_YELLOW); tft.print("0");
   tft.setTextColor(ILI9341_WHITE); tft.print(", ");
@@ -2153,18 +2152,18 @@ void chooseLevelInterface(){
   tft.setTextColor(ILI9341_WHITE); tft.println("0 = NOT PRESS \n1 = PRESS");
 
   //desenho das linhas da matriz
-  drawMatriz(cx, cy, 1.8, ILI9341_RED);
-  drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
-  drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
-  drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  drawMatriz(cx, cy, 2, ILI9341_RED);
+  drawMatriz(cx, cy, 3, ILI9341_GREEN);
+  drawMatriz(cx, cy, 4, ILI9341_BLUE);
+  drawMatriz(cx, cy, 5, ILI9341_WHITE);
 
   //colorindo o botão correto
-  colorMatriz2(cx,cy,5.8,5,ILI9341_PINK);
-  colorMatriz2(cx,cy,5.8,6,ILI9341_YELLOW);
-  
+  colorMatriz2(cx,cy,6,5,ILI9341_PINK);
+  colorMatriz2(cx,cy,6,6,ILI9341_YELLOW);
+  colorMatriz2(cx,cy,6,7,ILI9341_MAROON);
 }
 
-void beginGameInterface(){
+/*void beginGameInterface(){
   tft.setRotation(1); //rotação da tela
   tft.fillScreen(ILI9341_BLACK); //cor de fundo
   tft.setCursor(0, 0);
@@ -2186,7 +2185,7 @@ void beginGameInterface(){
   //colorindo o botão correto
   colorMatriz2(cx,cy,5.5,7,ILI9341_YELLOW);
     
-}
+}*/
 
 void showSequenceInterface(int num){
 tft.setRotation(1); //rotação da tela
@@ -2196,7 +2195,7 @@ tft.setRotation(1); //rotação da tela
   tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
   if (num == 0){tft.println("SEQUENCE TO REPEAT!");} //sequência do jogo
   if (num == 1){tft.println("LET'S CONFIRM!");} //conferência das sequências
-  if (num == 2){tft.println("LET'S CONFIRM:"); tft.println("FIRST YOUR SEQUENCE!"); tft.println("SECOND GAME SEQUENCE!");} //conferência das sequências
+  if (num == 2){tft.println("LET'S CONFIRM:"); tft.println("FIRST: YOUR SEQUENCE!"); tft.println("SECOND: GAME SEQUENCE!");} //conferência das sequências
   
   int cx = valueCX(); //variavel x horizontal
   int cy = valueCY();//variavel y vertical
@@ -2221,7 +2220,7 @@ void passConfirmRepeatInterface(){
   tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
   tft.println("PRESS: ");
   tft.setTextColor(ILI9341_MAROON);    tft.setTextSize(2);
-  tft.println("TO PASS LEVEL/BLOCK.");
+  tft.println("TO PASS LEVEL.");
   tft.setTextColor(ILI9341_YELLOW);    tft.setTextSize(2);
   tft.println("TO CONFIRM SEQUENCE.");
   tft.setTextColor(ILI9341_PINK);    tft.setTextSize(2);
@@ -2271,6 +2270,43 @@ void colorSequence(int secuencia1[], boolean sinLuz){
       else if(secuencia1[i] == 1 and i == 2)   {colorMatriz2(cx,cy,4.5,7,ILI9341_BLACK); delay(500); colorMatriz2(cx,cy,4.5,7,ILI9341_BLUE);} 
       else if(secuencia1[i] == 1 and i == 1)   {colorMatriz1(cx,cy,2.5,7,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,2.5,7,ILI9341_GREEN);} 
       else if(secuencia1[i] == 1 and i == 0)   {colorMatriz1(cx,cy,1.5,7,ILI9341_BLACK); delay(500); colorMatriz1(cx,cy,1.5,7,ILI9341_RED);}
+      else{}
+    }
+  }
+  delay(500);
+}
+
+void colorSequenceGame(int secuencia1[], boolean sinLuz){
+
+  int cx = valueCX(); //variavel x horizontal
+  int cy = valueCY();//variavel y vertical
+
+  if(sinLuz == 0){ //without light 
+    for(int i=32;i>=0;i--){
+      if(secuencia1[i] == 1 and i == 30)        {delay(500); colorMatriz2(cx,cy,4.5,0,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 29)   {delay(500); colorMatriz1(cx,cy,2.5,0,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 28)   {delay(500); colorMatriz1(cx,cy,1.5,0,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 26)   {delay(500); colorMatriz2(cx,cy,4.5,1,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 25)   {delay(500); colorMatriz1(cx,cy,2.5,1,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 24)   {delay(500); colorMatriz1(cx,cy,1.5,1,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 22)   {delay(500); colorMatriz2(cx,cy,4.5,2,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 21)   {delay(500); colorMatriz1(cx,cy,2.5,2,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 20)   {delay(500); colorMatriz1(cx,cy,1.5,2,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 18)   {delay(500); colorMatriz2(cx,cy,4.5,3,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 17)   {delay(500); colorMatriz1(cx,cy,2.5,3,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 16)   {delay(500); colorMatriz1(cx,cy,1.5,3,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 14)   {delay(500); colorMatriz2(cx,cy,4.5,4,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 13)   {delay(500); colorMatriz1(cx,cy,2.5,4,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 12)   {delay(500); colorMatriz1(cx,cy,1.5,4,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 10)   {delay(500); colorMatriz2(cx,cy,4.5,5,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 9)    {delay(500); colorMatriz1(cx,cy,2.5,5,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 8)    {delay(500); colorMatriz1(cx,cy,1.5,5,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 6)    {delay(500); colorMatriz2(cx,cy,4.5,6,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 5)    {delay(500); colorMatriz1(cx,cy,2.5,6,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 4)    {delay(500); colorMatriz1(cx,cy,1.5,6,ILI9341_WHITE);}
+      else if(secuencia1[i] == 1 and i == 2)    {delay(500); colorMatriz2(cx,cy,4.5,7,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 1)    {delay(500); colorMatriz1(cx,cy,2.5,7,ILI9341_WHITE);} 
+      else if(secuencia1[i] == 1 and i == 0)    {delay(500); colorMatriz1(cx,cy,1.5,7,ILI9341_WHITE);}
       else{}
     }
   }
