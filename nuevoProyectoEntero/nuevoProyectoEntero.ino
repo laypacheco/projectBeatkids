@@ -297,15 +297,12 @@ void seleccionNivel(){
   if(once && siete){ //ambos os leds foram selecionado: 11
     Serial.println("bloque11");
     bloque11(1);
-    //bloque11;
   }
 
   //nivel 2
   if(once){  //apenas o led11 foi selecionado : 10
     Serial.println("bloque10");
     bloque10(1);
-    Serial.println("bloque01");
-    bloque01(1);
   }
   
   //nivel 3
@@ -323,7 +320,6 @@ void seleccionNivel(){
 
 
 void bloquesNiveles(int nivel){
-
   
   Serial.print("el boque es: ");
   Serial.println(bloque);
@@ -1194,6 +1190,7 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
   terminar = false;
   int posicion = 0;
   int correctoNivel;
+  Serial.print("correctoNivel        : ");Serial.println(correctoNivel);
   leerSecuencia(secuencia1, sinLuz); //aparece sequência nos botões e na tela
   delay(5000);
   passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
@@ -1259,17 +1256,18 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               // leerSecuencia(estadoPul, true);
               // reproducirPulsadores(secuencia1);
 //              correctoNivel = comprobarSecuencia(secuencia1, nivel);
-              reinicioArrayBucle();
               Serial.println("sale al principal");
- //             if (correctoNivel==0){
-              if (comprobarSecuencia(secuencia1, nivel) == false){  
-                correctoNivel= nivel;
+               if (comprobarSecuencia(secuencia1, nivel) == false){  
+                correctoNivel = nivel;
                 terminar= false;
               } else {
                 //mirar secuencia y terminar repeticiones igual a repetir secuencia
-                correctoNivel=correctoNivel + nivel;
+                correctoNivel= 1 + nivel;
               }
-              Serial.println(correctoNivel);
+              Serial.print("nivel       : ");Serial.println(nivel);
+              Serial.print("correctoNivel        : ");Serial.println(correctoNivel);
+              Serial.print("nivel       : ");Serial.println(nivel);
+              reinicioArrayBucle();
               bloquesNiveles(correctoNivel);
             } 
             if (i==15) {//se apertou o botão para ir para o próximo bloco
@@ -1912,20 +1910,23 @@ void guardarSecuenciaBucle(){
 }
 
 
-boolean array_cmp(int *a, int *b, int len_a, int len_b){
+//boolean array_cmp(int *a, int *b, int len_a, int len_b){
+boolean array_cmp(int a[], int b[], int len_a, int len_b){  
   int n;
   Serial.print("Entra en array_cmp primero");
   // if their lengths are different, return false
   if (len_a != len_b) return false;
   Serial.print("Entra en array_cmp segundo");
   // test each element to be the same. if not, return false
-  for (n=0;n<len_a;n++) {
-    if (a[n]!=b[n] && n!=11 && n!=31 ) {
+  
+  for (n=0;n<32;n++) {
+//    if (a[n]!=b[n] && n!=11 && n!=31 ) {
+      Serial.print("n = "); Serial.print(n); Serial.print(" jogo = "); Serial.print(a[n]);Serial.print(" usuario = "); Serial.println(b[n]);
+    if (a[n]!=b[n]) {
       Serial.print(n);
       return false;
     }
   }
-     
   
   //ok, if we have not returned yet, they are equal :)
   return true;
