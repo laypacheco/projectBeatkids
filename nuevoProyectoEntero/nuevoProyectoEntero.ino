@@ -529,7 +529,7 @@ void bloque01(int nivel){
     case 1:{
       showLevelInterface(bloque,1); //interface para mostrar qual nível e caso
       Serial.println(bloque);
-      int nVezes = random(0,3);
+      int nVezes = random(1,4);
       delay(1000);
       int secuencia1 []={1,0,0,0,
                          1,0,0,0,
@@ -545,7 +545,7 @@ void bloque01(int nivel){
     case 2:{
       showLevelInterface(bloque,2); //interface para mostrar qual nível e caso
       Serial.println("entra en case 2");
-      int nVezes = random(0,3);
+      int nVezes = random(1,4);
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         0,1,0,0,
@@ -561,7 +561,7 @@ void bloque01(int nivel){
     case 3:{
       showLevelInterface(bloque,3); //interface para mostrar qual nível e caso
       Serial.println("entra en case 3");
-      int nVezes = random(0,3);
+      int nVezes = random(1,4);
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         1,0,0,0,
@@ -577,7 +577,7 @@ void bloque01(int nivel){
     case 4:{
       showLevelInterface(bloque,4); //interface para mostrar qual nível e caso
       Serial.println("entra en case 4");
-      int nVezes = random(0,3);
+      int nVezes = random(1,4);
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,1,0,0,
@@ -593,7 +593,7 @@ void bloque01(int nivel){
     case 5:{
       showLevelInterface(bloque,5); //interface para mostrar qual nível e caso
       Serial.println("entra en case 5");
-      int nVezes = random(2,5);
+      int nVezes = random(3,6);
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         0,0,1,0,
@@ -609,7 +609,7 @@ void bloque01(int nivel){
     case 6:{
       showLevelInterface(bloque,6); //interface para mostrar qual nível e caso
       Serial.println("entra en case 6");
-      int nVezes = random(2,5);
+      int nVezes = random(3,6);
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         1,0,0,0,
@@ -625,7 +625,7 @@ void bloque01(int nivel){
     case 7:{
       showLevelInterface(bloque,7); //interface para mostrar qual nível e caso
       Serial.println("entra en case 7");
-      int nVezes = random(2,5);
+      int nVezes = random(3,6);
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,0,1,0,
@@ -641,7 +641,7 @@ void bloque01(int nivel){
     case 8:{
       showLevelInterface(bloque,8); //interface para mostrar qual nível e caso
       Serial.println("entra en case 8");
-      int nVezes = random(2,5);
+      int nVezes = random(3,6);
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         1,0,0,0,
@@ -657,7 +657,7 @@ void bloque01(int nivel){
     case 9:{
       showLevelInterface(bloque,9); //interface para mostrar qual nível e caso
       Serial.println("entra en case 9");
-      int nVezes = random(4,7);
+      int nVezes = random(5,8);
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         1,0,0,0,
@@ -673,7 +673,7 @@ void bloque01(int nivel){
     case 10:{
       showLevelInterface(bloque,10); //interface para mostrar qual nível e caso
       Serial.println("entra en case 10");
-      int nVezes = random(4,7);
+      int nVezes = random(5,8);
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         0,0,1,0,
@@ -706,7 +706,7 @@ void bloque10(int nivel){
   switch (nivel) {
     case 1:{
       showLevelInterface(bloque,1); //interface para mostrar qual nível e caso
-      int nVezes[] = {random(0,3), 0};
+      int nVezes[] = {random(1,3), 0};
       delay(1000);
       int secuencia1 []={1,0,0,0,
                          1,0,0,0,
@@ -722,7 +722,7 @@ void bloque10(int nivel){
     case 2:{
       showLevelInterface(bloque,2); //interface para mostrar qual nível e caso
       Serial.println("entra en case 2");
-      int nVezes[] = {random(0,3), 0};
+      int nVezes[] = {random(1,3), 0};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,1,0,0,
@@ -738,7 +738,7 @@ void bloque10(int nivel){
     case 3:{
       showLevelInterface(bloque,3); //interface para mostrar qual nível e caso
       Serial.println("entra en case 3");
-      int nVezes[] = {random(0,3), 0};
+      int nVezes[] = {random(1,3), 0};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,1,0,0,
@@ -754,7 +754,7 @@ void bloque10(int nivel){
     case 4:{
       showLevelInterface(bloque,4); //interface para mostrar qual nível e caso
       Serial.println("entra en case 4");
-      int nVezes[] = {random(0,3), 0};
+      int nVezes[] = {random(1,3), 0};
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         1,0,0,0,
@@ -770,7 +770,7 @@ void bloque10(int nivel){
     case 5:{
       showLevelInterface(bloque,5); //interface para mostrar qual nível e caso
       Serial.println("entra en case 5");
-      int nVezes[] = {0, random(0,3)};
+      int nVezes[] = {0, random(1,3)};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         0,0,1,0,
@@ -786,7 +786,7 @@ void bloque10(int nivel){
     case 6:{
       showLevelInterface(bloque,6); //interface para mostrar qual nível e caso
       Serial.println("entra en case 6");
-      int nVezes[] = {0, random(0,3)};
+      int nVezes[] = {0, random(1,3)};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         0,1,0,0,
@@ -802,7 +802,7 @@ void bloque10(int nivel){
     case 7:{
       showLevelInterface(bloque,7); //interface para mostrar qual nível e caso
       Serial.println("entra en case 7");
-      int nVezes[] = {0, random(0,3)};
+      int nVezes[] = {0, random(1,3)};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         1,0,0,0,
@@ -818,7 +818,7 @@ void bloque10(int nivel){
     case 8:{
       showLevelInterface(bloque,8); //interface para mostrar qual nível e caso
       Serial.println("entra en case 8");
-      int nVezes[] = {0, random(0,3)};
+      int nVezes[] = {0, random(1,3)};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         1,0,0,0,
@@ -834,7 +834,7 @@ void bloque10(int nivel){
     case 9:{
       showLevelInterface(bloque,9); //interface para mostrar qual nível e caso
       Serial.println("entra en case 9");
-      int nVezes[] = {random(0,3), random(2,5)};
+      int nVezes[] = {random(1,3), random(2,5)};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,0,1,0,
@@ -850,7 +850,7 @@ void bloque10(int nivel){
     case 10:{
       showLevelInterface(bloque,10); //interface para mostrar qual nível e caso
       Serial.println("entra en case 10");
-      int nVezes[] = {random(0,3), random(2,5)};
+      int nVezes[] = {random(1,3), random(2,5)};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         0,1,0,0,
@@ -1267,11 +1267,11 @@ void juegoBucleCompleto(int secuencia1[], int nivel, int nVezes){
 //se repiten partes de la secuencia
 void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
   Serial.println("jogo com repetições parciais");
-  reinicioArrayBucle();
-  boolean usoBucle= false;
+  //reinicioArrayBucle();
+  //boolean usoBucle= false;
   terminar = false;
   int nVezesNovo[] = {0,0};
-  int posicion = 0;
+  //int posicion = 0;
   int correctoNivel;
 
   int loops2 = 0;
@@ -1282,18 +1282,18 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
   else {part1 = false; part2 = true;} //nivel 5,6,7 e 8: 2ª parte repete e 1º parte não
   
   leerSecuenciaRepeticiones(secuencia1, nVezes, part1, part2); //aparece sequência nos botões e na tela
-  delay(5000);
+  delay(2000);
 
   if(nivel == 1){ //exemplo nivel 1
-    //seleciona a 1ª parte da sequencia
-    //seleciona inicio do loop
-    //seleciona quantos loops
-    //seleciona a 2ª parte da sequencia
+    bloque10Interface(1); //example interface
+    delay(5000);
+    bloque10Interface(2); //loop information + loop sequence
+
   } else if(nivel == 5){ //exemplo nivel 5
-    //seleciona a 1ª parte da sequencia
-    //seleciona a 2ª parte da sequencia
-    //seleciona inicio do loop
-    //seleciona quantos loops
+    bloque10Interface(1); //example interface
+    delay(5000);
+    bloque10Interface(3); //sequence without loop
+
   } else if(nivel == 9){ //exemplo nivel 9
     //seleciona a 1ª parte da sequencia
     //seleciona inicio do loop
@@ -1301,8 +1301,9 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
     //seleciona a 2ª parte da sequencia
     //seleciona inicio do loop
     //seleciona quantos loops
+
   } else { //demais interfaces
-    bloque01Interface(3);
+    bloque10Interface(5);
   }
 
   //mientras no se pulse terminar
@@ -1331,6 +1332,18 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
               trellis.clrLED(31);
               trellis.writeDisplay();
               leerSecuenciaRepeticiones(secuencia1, nVezes, part1, part2);//repetição da sequência
+                if(nivel == 1){ //exemplo nivel 1
+                  bloque10Interface(1); //example interface
+                  delay(5000);
+                  bloque10Interface(2); //loop information + loop sequence
+                } else if(nivel == 5){ //exemplo nivel 5
+                  bloque10Interface(1); //example interface
+                  delay(5000);
+                  bloque10Interface(3); //sequence without loop
+                } else if(nivel == 9){ //exemplo nivel 9
+                } else { //demais interfaces
+                  bloque10Interface(5);
+                }
 //MUDAR A INTERFACE SEGUINTE              passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
             }
 /*            //si no es boton de control controles, guardar en array
@@ -1350,18 +1363,16 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
             }
             if (i == 23){
               nVezesNovo[loops2 - 1] = nVezesNovo[loops2] + 1;
+              if (nivel == 1 & loops2 == 1){
+                  bloque10Interface(3); //sequence without loop
+              } else if(nivel == 5 & loops2 == 1){
+                  bloque10Interface(2); //loop information + loop sequence
+              }
             }
             
             if (i==19){
               showInterface(2); //interface para conferência das sequências
               delay(2000);
-              //si se a pulsado el boton 27 es que a realizado la secuencia mediane los botones de bucles
-/*              if(usoBucle){
-                guardarArrayBucles();
-              } else {
-                guardarSecuencia();
-              }
-EU ADICIONEI ISSO AQUI, MAS NÃO SEI SE ESTÁ CERTO*/
               //si se a pulsado el boton 27 es que a realizado la secuencia mediane los botones de bucles
               Serial.print(arrayBucle[1]);
               Serial.print(arrayBucle[31]);
@@ -2087,6 +2098,17 @@ void comprobarDosSecuencias(int secuencia1[], int solucionCorrecta[], int nVezes
   Serial.print("entra en comprobar secuencia dos");
   
   //repete a sequência do usuário nVezesNovo na matriz
+  if (bloque == 1) { 
+    nVezes = 1;
+    nVezesNovo = 1;
+  }
+
+//Serial.print("secuencia1 ");Serial.println(secuencia1);
+//Serial.print("solucionCorrecta ");Serial.println(solucionCorrecta);
+Serial.print("nVezes ");Serial.println(nVezes);
+Serial.print("nVezesNovo ");Serial.println(nVezesNovo);
+
+  
   for(int j=0;j<nVezesNovo;j++){
     for (int i = numKeys; i >= 0; i--) {
       Serial.println(secuencia1[i]);
@@ -2333,30 +2355,6 @@ void chooseLevelInterface(){
   colorMatriz2(cx,cy,6,7,ILI9341_MAROON);
 }
 
-/*void beginGameInterface(){
-  tft.setRotation(1); //rotação da tela
-  tft.fillScreen(ILI9341_BLACK); //cor de fundo
-  tft.setCursor(0, 0);
-
-  int cx = valueCX(); //variavel x horizontal
-  int cy = valueCY();//variavel y vertical
-
-  //texto na tela
-  Serial.print(F("Text                     "));
-  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
-  tft.print("PAY ATTENTION IN THE\nSEQUENCE.");
-  tft.setTextColor(ILI9341_YELLOW); tft.print("CLICK ON THE\nBOTTON TO BEGIN.");
-  //desenho das linhas da matriz
-  drawMatriz(cx, cy, 1.5, ILI9341_RED);
-  drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
-  drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
-  drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
-
-  //colorindo o botão correto
-  colorMatriz2(cx,cy,5.5,7,ILI9341_YELLOW);
-    
-}*/
-
 void showSequenceInterface(int num){
 tft.setRotation(1); //rotação da tela
   tft.fillScreen(ILI9341_BLACK); //cor de fundo
@@ -2413,6 +2411,85 @@ void bloque01Interface(int numInterface){
     colorMatriz2(cx,cy,5.8,2,ILI9341_YELLOW);    
     colorMatriz2(cx,cy,5.8,3,ILI9341_PINK);    
   } else if (numInterface == 3){
+    //texto na tela
+    tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("PRESS: ");
+    tft.setTextColor(ILI9341_PINK); tft.setTextSize(1); tft.println("TO REPEAT SEQUENCE.");
+    tft.setTextColor(ILI9341_RED); tft.setTextSize(1); tft.println("TO START THE LOOP.");
+    tft.setTextColor(ILI9341_GREEN); tft.setTextSize(1); tft.println("TO SAY HOW MANY LOOPS.");
+    tft.setTextColor(ILI9341_YELLOW); tft.setTextSize(1); tft.println("TO CONFIRM SEQUENCE.");
+    tft.setTextColor(ILI9341_MAROON); tft.setTextSize(1); tft.println("TO PASS LEVEL.");
+
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,0,ILI9341_PINK);
+    colorMatriz2(cx,cy,5.8,1,ILI9341_RED);
+    colorMatriz2(cx,cy,5.8,2,ILI9341_GREEN);
+    colorMatriz2(cx,cy,5.8,3,ILI9341_YELLOW);
+    colorMatriz2(cx,cy,5.8,4,ILI9341_MAROON);
+  }
+}
+
+void bloque10Interface(int numInterface){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+
+  int cx = valueCX(); //variavel x horizontal
+  int cy = valueCY();//variavel y vertical
+
+  if(numInterface == 1){ //interface inicial de exemplo
+    tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+    tft.println("PRESS THE SEQUENCE, BUT BEFORE EACH LOOP PRESS THE BOTONS TO ABOUT IT, FOR EXAMPLE:");
+  
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+  } else if (numInterface == 2){ //loop information + loop sequence
+        tft.setTextColor(ILI9341_PINK); tft.setTextSize(2); tft.println("PRESS TO INFORMATION THAT YOU ARE STARTING A LOOP");
+        tft.setTextColor(ILI9341_YELLOW); tft.println("PRESS HOW MANY TIMES THAT LOOP HAPPENS!"); 
+        tft.setTextColor(ILI9341_WHITE); tft.println("AFTER, PRESS THE SEQUENCE THAT REPEAT!");
+//        tft.setTextColor(ILI9341_GREEN); tft.println("AND THEN, PRESS TO CONFIRM!");
+  
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,2,ILI9341_YELLOW);    
+    //colorMatriz2(cx,cy,5.8,3,ILI9341_GREEN);
+    colorMatriz2(cx,cy,5.8,1,ILI9341_PINK);
+
+  } else if (numInterface == 3){ //sequence without loop
+    tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("PRESS THE SEQUENCE WITHOUT LOOP");
+  
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+  } else if (numInterface == 4){ //confirm sequence
+    tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("PRESS TO CONFIRM ALL SEQUENCE");
+  
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+
+    colorMatriz2(cx,cy,5.8,3,ILI9341_WHITE);
+    
+  } else if (numInterface == 5){ //geral interface
     //texto na tela
     tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("PRESS: ");
     tft.setTextColor(ILI9341_PINK); tft.setTextSize(1); tft.println("TO REPEAT SEQUENCE.");
