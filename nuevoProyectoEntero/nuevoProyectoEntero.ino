@@ -549,8 +549,7 @@ void bloque01(int nivel){
     case 1:{
       showLevelInterface(bloque,1); //interface para mostrar qual nível e caso
       Serial.println(bloque);
-      int n = random(1,4);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1 []={1,0,0,0,
                          1,0,0,0,
@@ -567,8 +566,7 @@ void bloque01(int nivel){
     case 2:{
       showLevelInterface(bloque,2); //interface para mostrar qual nível e caso
       Serial.println("entra en case 2");
-      int n = random(1,4);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         0,1,0,0,
@@ -585,8 +583,7 @@ void bloque01(int nivel){
     case 3:{
       showLevelInterface(bloque,3); //interface para mostrar qual nível e caso
       Serial.println("entra en case 3");
-      int n = random(1,4);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         1,0,0,0,
@@ -603,8 +600,7 @@ void bloque01(int nivel){
     case 4:{
       showLevelInterface(bloque,4); //interface para mostrar qual nível e caso
       Serial.println("entra en case 4");
-      int n = random(1,4);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,1,0,0,
@@ -621,8 +617,7 @@ void bloque01(int nivel){
     case 5:{
       showLevelInterface(bloque,5); //interface para mostrar qual nível e caso
       Serial.println("entra en case 5");
-      int n = random(3,6);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         0,0,1,0,
@@ -639,8 +634,7 @@ void bloque01(int nivel){
     case 6:{
       showLevelInterface(bloque,6); //interface para mostrar qual nível e caso
       Serial.println("entra en case 6");
-      int n = random(3,6);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         1,0,0,0,
@@ -657,8 +651,7 @@ void bloque01(int nivel){
     case 7:{
       showLevelInterface(bloque,7); //interface para mostrar qual nível e caso
       Serial.println("entra en case 7");
-      int n = random(3,6);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={1,0,0,0,
                         0,0,1,0,
@@ -675,8 +668,7 @@ void bloque01(int nivel){
     case 8:{
       showLevelInterface(bloque,8); //interface para mostrar qual nível e caso
       Serial.println("entra en case 8");
-      int n = random(3,6);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,0,1,0,
                         1,0,0,0,
@@ -693,8 +685,7 @@ void bloque01(int nivel){
     case 9:{
       showLevelInterface(bloque,9); //interface para mostrar qual nível e caso
       Serial.println("entra en case 9");
-      int n = random(5,8);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         1,0,0,0,
@@ -711,8 +702,7 @@ void bloque01(int nivel){
     case 10:{
       showLevelInterface(bloque,10); //interface para mostrar qual nível e caso
       Serial.println("entra en case 10");
-      int n = random(5,8);
-      int nVezes[] = {n,n};
+      int nVezes[] = {random(1,4),0};
       delay(1000);
       int secuencia1[]={0,1,0,0,
                         0,0,1,0,
@@ -1312,12 +1302,8 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
   int correctoNivel;
   int loops2 = 0;
   
-/*  boolean part1, part2; //part1: 1ª sequência repete; part2: 2ª sequência repete
-  if (nivel < 5) {part1 = true; part2 = false;} //nivel 1,2,3 e 4: 1ª parte repete e 2º parte não
-  else if (nivel > 8) {part1 = true; part2 = true;} //nivel 9 e 10: 1ª e 2ª parte repete
-  else {part1 = false; part2 = true;} //nivel 5,6,7 e 8: 2ª parte repete e 1º parte não
-*/  
-  leerSecuenciaRepeticiones(secuencia1, nVezes); //aparece sequência nos botões e na tela
+  if (bloque == 2) {leerSecuenciabloque01(secuencia1, nVezes);}
+  else {leerSecuenciaRepeticiones(secuencia1, nVezes);} //aparece sequência nos botões e na tela
   delay(2000);
 
   if (bloque == 1){
@@ -1375,7 +1361,10 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
               delay(100);
               trellis.clrLED(31);
               trellis.writeDisplay();
-              leerSecuenciaRepeticiones(secuencia1, nVezes);//repetição da sequência
+              
+              if (bloque == 2) {leerSecuenciabloque01(secuencia1, nVezes);}
+              else {leerSecuenciaRepeticiones(secuencia1, nVezes);}
+              
               if (bloque == 1){
                 passConfirmRepeatInterface();  //interface 05: pass, confirm or repeat
               } else if (bloque == 2){
@@ -1397,42 +1386,45 @@ void juegoRepeticiones(int secuencia1[], int nivel, int nVezes[]){
             }
 
             if (i == 27){
+              Serial.println("selecionei o 27");
               if (bloque == 3){
-                if(nivel == 1){ //exemplo nivel 1
-                  bloque10Interface(2); //QUANTOS LOOPS + SEQUENCIA QUE NÃO REPETE + CONFIRMAR SEQUENCIA
-                } else if(nivel == 5){ //exemplo nivel 5
-                  bloque10Interface(3); //QUANTOS LOOPS + CONFIRMAR SEQUENCIA
-                } else if(nivel == 9){ //exemplo nivel 9
-                }  
-
-                if(nivel > 4 or nivel < 9){
-                  loops2 = 1;
-                }
-              }  
+              
+                if(nivel == 1) {bloque10Interface(2);} //exemplo nivel 1: QUANTOS LOOPS + SEQUENCIA QUE NÃO REPETE + CONFIRMAR SEQUENCIA
+                else if(nivel == 5) {bloque10Interface(3);} //exemplo nivel 5: QUANTOS LOOPS + CONFIRMAR SEQUENCIA
+                else if(nivel == 9) {} //exemplo nivel 9
+                
+                if(nivel > 4 or nivel < 9) {loops2 = 1;}
+              
+              } else if (bloque == 2){
+                if (nivel == 1) {bloque01Interface(2);}//segunda interface exemplo bloque01
+                else {bloque01Interface(3);}//interface final de todos os niveis do bloque01 
+              }
               loops2 = loops2 + 1;
+              Serial.print("loops2(27): "); Serial.println(loops2);
             }
             
             if (i == 23){
-              nVezesNovo[loops2 - 1] = nVezesNovo[loops2] + 1;
-              if (bloque == 2){nVezesNovo[0] = nVezesNovo[1];}
+              Serial.println("selecionei o 23");
+              nVezesNovo[loops2 - 1] = nVezesNovo[loops2-1] + 1;
+              Serial.print("nVezesNovo(23): "); Serial.print(nVezesNovo[loops2 - 1]);
             }
             
             if (i==19){
               showInterface(2); //interface para conferência das sequências
               delay(2000);
               //si se a pulsado el boton 27 es que a realizado la secuencia mediane los botones de bucles
-              Serial.print(arrayBucle[1]);
-              Serial.print(arrayBucle[31]);
+//              Serial.print(arrayBucle[1]);
+//              Serial.print(arrayBucle[31]);
               Serial.println("TERMINADO PULSADORES");
               trellis.setLED(19);
               trellis.writeDisplay();
               delay(100);
               trellis.clrLED(19);
               trellis.writeDisplay();
-              guardarBuclesVarios();
+            //  guardarBuclesVarios();
+              guardarSecuencia();
               terminar=true;
               // se reproducen las dos secuencias lo pulsado y lo correcto con parpadeo
-              //reinicioArrayBucle();
               Serial.println("sale al principal");
               if (comprobarSecuenciaRepeticiones(secuencia1, nivel, nVezes, nVezesNovo, bloque) == false){  
                 correctoNivel = nivel;
@@ -1546,33 +1538,13 @@ void leerSecuenciaRepeticiones(int secuencia1[], int nVezes[]){
       for (int i = numKeys; i >= 0; i--) {
         Serial.println(secuencia1[i]);
         //si es 1 es que tiene que sonar
-      if(secuencia1[i]==1){
+        if(secuencia1[i]==1){
           if(i==16 || i==20 || i==24 || i==28){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(low, 500);noTone(spk);delay(50);
-            }
-          }
-          if(i==17 || i==21 || i==25 || i==29){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();              
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(mid, 500);noTone(spk);delay(50);
-            }
-          }
-          if(i==18 || i==22 || i==26 || i==30){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();              
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(high, 500);noTone(spk);delay(50);
-            }
+            colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+          } else if(i==17 || i==21 || i==25 || i==29){
+              colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+          } else if(i==18 || i==22 || i==26 || i==30){
+              colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
           }
         }
       }
@@ -1584,45 +1556,64 @@ void leerSecuenciaRepeticiones(int secuencia1[], int nVezes[]){
         //si es 1 es que tiene que sonar
         if(secuencia1[i]==1){
           if(i==0 || i==4 || i==8 || i==12){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();              
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(low, 500);noTone(spk);delay(50);
-            }
-          }
-          if(i==1 || i==5 || i==9 || i==13){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(mid, 500);noTone(spk);delay(50);
-            }
-          }
-          if(i==2 || i==6 || i==10 || i==14){
-            if(secuencia1[i]==1){
-              trellis.clrLED(i);
-              trellis.writeDisplay();
-              trellis.setLED(i);
-              trellis.writeDisplay();
-              nota(high, 500);noTone(spk);delay(50);
-            }
+            colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+          } else if(i==1 || i==5 || i==9 || i==13){
+            colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+          } else if(i==2 || i==6 || i==10 || i==14){
+              colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
           }
         }
       }
-    }  
+    }
 
+  showSequenceInterface(0); //frase para sequência de reprodução
+  colorSequenceRepeat(secuencia1, nVezes);
+  
   for (int i = numKeys; i >= 0; i--) {
     trellis.clrLED(i);
     trellis.writeDisplay();
   }
-  
-  showSequenceInterface(0); //frase para sequência de reprodução
-  colorSequenceRepeat(secuencia1, nVezes);
+
 }
+
+void leerSecuenciabloque01(int secuencia1[], int nVezes[]){
+  Serial.println("leer secuencia Repeticiones");
+
+  if (nVezes[0] == 0) { nVezes[0] = 1;}
+
+  // apagar luces que esten encendidas
+  for (int i = numKeys; i >= 0; i--) {
+    trellis.clrLED(i);
+    trellis.writeDisplay();
+  }
+    
+
+    for(int j=0;j<nVezes[0];j++){
+      for (int i = numKeys; i >= 0; i--) {
+        Serial.println(secuencia1[i]);
+        //si es 1 es que tiene que sonar
+        if(secuencia1[i]==1){
+          if(i==16 || i==20 || i==24 || i==28 || i==0 || i==4 || i==8 || i==12){
+            colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+          } else if(i==17 || i==21 || i==25 || i==29 || i==1 || i==5 || i==9 || i==13){
+              colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+          } else if(i==18 || i==22 || i==26 || i==30 || i==2 || i==6 || i==10 || i==14){
+              colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
+          }
+        }
+      }
+    }
+
+  showSequenceInterface(0); //frase para sequência de reprodução
+  for(int j=0;j<nVezes[0];j++){ colorSequence(secuencia1);}
   
+  for (int i = numKeys; i >= 0; i--) {
+    trellis.clrLED(i);
+    trellis.writeDisplay();
+  }
+
+}  
+
 //reproducir la secuencia pulsada
 void reproducirPulsadores(int secuancia1[]){
   int y = 0;
@@ -2000,7 +1991,8 @@ void reinicioArrayBucle(){
 
 boolean comprobarSecuenciaRepeticiones(int secuencia1[], int nivelJuego, int nVezes[], int nVezesNovo[], int block){
   Serial.print("Entra en comprobar");
-  comprobarDosSecuenciasRepeticiones(estadoPul, secuencia1, nVezes, nVezesNovo);
+  if (bloque == 2){comprobarDosSecuencias(estadoPul, secuencia1, nVezes[0], nVezesNovo[0]);}
+  else {comprobarDosSecuenciasRepeticiones(estadoPul, secuencia1, nVezes, nVezesNovo);}
   boolean siguiente;
   //comprobar
   Serial.println("mira sin son iguales");
@@ -2162,7 +2154,7 @@ boolean array_cmp(int a[], int b[]){
 
 
 void comprobarDosSecuenciasRepeticiones(int secuencia1[], int solucionCorrecta[], int nVezes[], int nVezesNovo[]){
-  Serial.print("entra en comprobar secuencia dos");
+  Serial.println("entra en comprobar secuencia dos");
 
   //repetir pelo menos uma vezes para vizualizar
   if (nVezes[0] == 0) { nVezes[0] = 1;}
@@ -2170,294 +2162,131 @@ void comprobarDosSecuenciasRepeticiones(int secuencia1[], int solucionCorrecta[]
   if (nVezesNovo[0] == 0) { nVezesNovo[0] = 1;}
   if (nVezesNovo[1] == 0) { nVezesNovo[1] = 1;}
 
-//Serial.print("secuencia1 ");Serial.println(secuencia1);
-//Serial.print("solucionCorrecta ");Serial.println(solucionCorrecta);
-Serial.print("nVezes[0] ");Serial.println(nVezes[0]);
-Serial.print("nVezes[1] ");Serial.println(nVezes[1]);
-Serial.print("nVezesNovo[0] ");Serial.println(nVezesNovo[0]);
-Serial.print("nVezesNovo[1] ");Serial.println(nVezesNovo[1]);
+  Serial.print("nVezes[0] ");Serial.println(nVezes[0]);
+  Serial.print("nVezes[1] ");Serial.println(nVezes[1]);
+  Serial.print("nVezesNovo[0] ");Serial.println(nVezesNovo[0]);
+  Serial.print("nVezesNovo[1] ");Serial.println(nVezesNovo[1]);
 
   //1ª parte usuário
+  Serial.println("Primeira parte usuário");
   for(int j=0;j<nVezesNovo[0];j++){
     for (int i = numKeys; i >= 0; i--) {
       Serial.println(secuencia1[i]);
       //si es 1 es que tiene que sonar
       if(secuencia1[i]==1){
         if(i==16 || i==20 || i==24 || i==28){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(low, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==17 || i==21 || i==25 || i==29){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(mid, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==18 || i==22 || i==26 || i==30){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(high, 500);noTone(spk);delay(50);
-          }
+          colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+        } else if(i==17 || i==21 || i==25 || i==29){
+          colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+        } else if(i==18 || i==22 || i==26 || i==30){
+          colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
         }
       }
-      delay(100);
     }
   }
+  
   //2ª parte usuário
+  Serial.println("Segunda parte usuário");
   for(int j=0;j<nVezesNovo[1];j++){
     for (int i = numKeys; i >= 0; i--) {
       Serial.println(secuencia1[i]);
       //si es 1 es que tiene que sonar
       if(secuencia1[i]==1){
         if(i==0 || i==4 || i==8 || i==12){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(low, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==1 || i==5 || i==9 || i==13){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(mid, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==2 || i==6 || i==10 || i==14){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(high, 500);noTone(spk);delay(50);
-          }
+          colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+        } else if(i==1 || i==5 || i==9 || i==13){
+          colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+        } else if(i==2 || i==6 || i==10 || i==14){
+          colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
         }
       }
-      delay(100);
-    }
-  }  
-  showSequenceInterface(2); //frase para sequência de comparação
-  //repete a sequência do usuário nVezesNovo na tela
-    colorSequenceRepeat(secuencia1, nVezesNovo); //aparece sequência na tela
-  
-  //repete a sequência do jogo nVezes na matriz
-  for(int j=0;j<nVezes[0];j++){  
-    for (int i = numKeys; i >= 0; i--) {
-      Serial.println(solucionCorrecta[i]);
-      //si es 1 es que tiene que sonar
-      if(solucionCorrecta[i]==1){
-        if(i==16 || i==20 || i==24 || i==28){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(low, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==17 || i==21 || i==25 || i==29){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(mid, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==18 || i==22 || i==26 || i==30){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(high, 500);noTone(spk);delay(100);
-          }
-        }
-        if(trellis.isLED(i)){
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-        } else {
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-        }
-      }
-      delay(100);
     }
   }  
 
+  showSequenceInterface(2); //interface geral de comparação
+  colorSequenceRepeat(secuencia1, nVezesNovo); //interface sequência usuário
+  
+  //repete a sequência do jogo nVezes na matriz
+  Serial.println("Primeira parte jogo");
+  for(int j=0;j<nVezes[0];j++){  
+    for (int i = numKeys; i >= 0; i--) {
+      Serial.println(solucionCorrecta[i]);
+      if(solucionCorrecta[i]==1){
+        if(i==16 || i==20 || i==24 || i==28){
+          colorleds(3,i); nota(low, 500);noTone(spk);delay(100);
+        } else if(i==17 || i==21 || i==25 || i==29){
+          colorleds(3,i); nota(mid, 500);noTone(spk);delay(100);
+        } else if(i==18 || i==22 || i==26 || i==30){
+          colorleds(3,i); nota(high, 500);noTone(spk);delay(100);
+        }
+      }
+    }
+  }  
+
+  Serial.println("Segunda parte jogo");
   for(int j=0;j<nVezes[1];j++){  
     for (int i = numKeys; i >= 0; i--) {
       Serial.println(solucionCorrecta[i]);
       //si es 1 es que tiene que sonar
       if(solucionCorrecta[i]==1){
         if(i==0 || i==4 || i==8 || i==12){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(low, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==1 || i==5 || i==9 || i==13){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(mid, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==2 || i==6 || i==10 || i==14){
-          if(solucionCorrecta[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(high, 500);noTone(spk);delay(100);
-          }
-        }
-        if(trellis.isLED(i)){
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-        } else {
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
+          colorleds(3,i); nota(low, 500);noTone(spk);delay(100);
+        } else if(i==1 || i==5 || i==9 || i==13){
+          colorleds(3,i); nota(mid, 500);noTone(spk);delay(100);
+        } else if(i==2 || i==6 || i==10 || i==14){
+          colorleds(3,i); nota(high, 500);noTone(spk);delay(100);
         }
       }
-      delay(100);
     }
-  }  
+  }
+
+  colorGameRepeat(solucionCorrecta, nVezes);
   
-  Serial.print("sale de la funcion                    ");
+  Serial.print("sale de la funcion");
   // poner todas las luces apagadas a la vez
   borrarLedJuntos();
+}
+
+void colorleds(int numblink, int numLed){
+  for (int i=0; i<numblink; i++){
+    trellis.clrLED(numLed);
+    trellis.writeDisplay();
+    delay(300);
+    trellis.setLED(numLed);
+    trellis.writeDisplay();
+    if (i<(numblink-1)) {delay(300);}
+  }
 }
 
 void comprobarDosSecuencias(int secuencia1[], int solucionCorrecta[], int nVezes, int nVezesNovo){
   Serial.print("entra en comprobar secuencia dos");
   
-  //repete a sequência do usuário nVezesNovo na matriz
-  if (bloque == 1) { 
-    nVezes = 1;
-    nVezesNovo = 1;
-  }
+  //repetir pelo menos uma vezes para vizualizar
+  if (nVezes == 0) { nVezes = 1;}
+  if (nVezesNovo == 0) { nVezesNovo = 1;}
 
-//Serial.print("secuencia1 ");Serial.println(secuencia1);
-//Serial.print("solucionCorrecta ");Serial.println(solucionCorrecta);
-Serial.print("nVezes ");Serial.println(nVezes);
-Serial.print("nVezesNovo ");Serial.println(nVezesNovo);
-
-  
+  Serial.print("nVezes ");Serial.println(nVezes);
+  Serial.print("nVezesNovo ");Serial.println(nVezesNovo);
+   
   for(int j=0;j<nVezesNovo;j++){
     for (int i = numKeys; i >= 0; i--) {
       Serial.println(secuencia1[i]);
       //si es 1 es que tiene que sonar
       if(secuencia1[i]==1){
         if(i==0 || i==4 || i==8 || i==12 || i==16 || i==20 || i==24 || i==28){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(low, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==1 || i==5 || i==9 || i==13 || i==17 || i==21 || i==25 || i==29){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(mid, 500);noTone(spk);delay(50);
-          }
-        }
-        if(i==2 || i==6 || i==10 || i==14 || i==18 || i==22 || i==26 || i==30){
-          if(secuencia1[i]==1){
-            trellis.clrLED(i);
-            trellis.writeDisplay();
-            delay(300);
-            trellis.setLED(i);
-            trellis.writeDisplay();
-            nota(high, 500);noTone(spk);delay(50);
-          }
+            colorleds(1,i); nota(low, 500);noTone(spk);delay(50);
+        } else if(i==1 || i==5 || i==9 || i==13 || i==17 || i==21 || i==25 || i==29){
+          colorleds(1,i); nota(mid, 500);noTone(spk);delay(50);
+        } else if(i==2 || i==6 || i==10 || i==14 || i==18 || i==22 || i==26 || i==30){
+          colorleds(1,i); nota(high, 500);noTone(spk);delay(50);
         }
       }
-      //si a pasado de fila un delay
-      if(i==3 || i==7 || i==11 || i==15|| i==19|| i==23|| i==27|| i==31 ){
-        delay(100);
-      } 
-      delay(100);
     }
-  }  
+  }      
+
   showSequenceInterface(2); //frase para sequência de comparação
   //repete a sequência do usuário nVezesNovo na tela
-  for(int j=0;j<nVezesNovo;j++){
-    colorSequence(secuencia1); //aparece sequência na tela
-  }
+  for(int j=0;j<nVezesNovo;j++){ colorSequence(secuencia1);} //aparece sequência na tela
   
   //repete a sequência do jogo nVezes na matriz
   for(int j=0;j<nVezes;j++){  
@@ -2466,52 +2295,17 @@ Serial.print("nVezesNovo ");Serial.println(nVezesNovo);
       //si es 1 es que tiene que sonar
       if(solucionCorrecta[i]==1){
         if(i==0 || i==4 || i==8 || i==12 || i==16 || i==20 || i==24 || i==28){
-          if(solucionCorrecta[i]==1){
-            nota(low, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==1 || i==5 || i==9 || i==13 || i==17 || i==21 || i==25 || i==29){
-          if(solucionCorrecta[i]==1){
-            nota(mid, 500);noTone(spk);delay(100);
-          }
-        }
-        if(i==2 || i==6 || i==10 || i==14 || i==18 || i==22 || i==26 || i==30){
-          if(solucionCorrecta[i]==1){
-            nota(high, 500);noTone(spk);delay(100);
-          }
-        }
-        if(trellis.isLED(i)){
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.setLED(i);
-          trellis.writeDisplay();
-        } else {
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
-          trellis.setLED(i);
-          trellis.writeDisplay();
-          delay(300);
-          trellis.clrLED(i);
-          trellis.writeDisplay();
+          colorleds(3,i); nota(low, 500);noTone(spk);delay(100);
+        } else if(i==1 || i==5 || i==9 || i==13 || i==17 || i==21 || i==25 || i==29){
+          colorleds(3,i); nota(mid, 500);noTone(spk);delay(100);
+        } else  if(i==2 || i==6 || i==10 || i==14 || i==18 || i==22 || i==26 || i==30){
+          colorleds(3,i); nota(high, 500);noTone(spk);delay(100);
         }
       }
-      delay(100);
     }
-  }  
-  //repete a sequência do jogo nVezes na matriz
-  for(int j=0;j<nVezes;j++){  
-    colorSequenceGame(solucionCorrecta); //aparece sequência na tela
-  }
+  }    
+
+  for(int j=0;j<nVezes;j++) {colorSequenceGame(solucionCorrecta);} //aparece sequência na tela
   
   Serial.print("sale de la funcion                    ");
   // poner todas las luces apagadas a la vez
@@ -2927,6 +2721,50 @@ void colorSequenceRepeat(int secuencia1[], int nVezes[]){
         else if(secuencia1[i] == 1 and i == 2)   {colorMatriz2(cx,cy,4.5,7,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,7,ILI9341_BLUE);} 
         else if(secuencia1[i] == 1 and i == 1)   {colorMatriz1(cx,cy,2.5,7,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,7,ILI9341_GREEN);} 
         else if(secuencia1[i] == 1 and i == 0)   {colorMatriz1(cx,cy,1.5,7,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,7,ILI9341_RED);}
+        else{}
+      }
+    }  
+  delay(500);
+}
+
+void colorGameRepeat(int secuencia1[], int nVezes[]){
+
+  int cx = valueCX(); //variavel x horizontal
+  int cy = valueCY();//variavel y vertical
+
+  
+    for(int j=0;j<nVezes[0];j++){  
+      for(int i=32;i>=0;i--){
+        if(secuencia1[i] == 1 and i == 30)         {colorMatriz2(cx,cy,4.5,0,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,0,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 29)    {colorMatriz1(cx,cy,2.5,0,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,0,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 28)    {colorMatriz1(cx,cy,1.5,0,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,0,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 26)    {colorMatriz2(cx,cy,4.5,1,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,1,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 25)    {colorMatriz1(cx,cy,2.5,1,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,1,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 24)    {colorMatriz1(cx,cy,1.5,1,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,1,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 22)    {colorMatriz2(cx,cy,4.5,2,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,2,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 21)   {colorMatriz1(cx,cy,2.5,2,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,2,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 20)   {colorMatriz1(cx,cy,1.5,2,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,2,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 18)   {colorMatriz2(cx,cy,4.5,3,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,3,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 17)   {colorMatriz1(cx,cy,2.5,3,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,3,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 16)   {colorMatriz1(cx,cy,1.5,3,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,3,ILI9341_WHITE);}
+        else{}  
+      }
+    }
+
+    for(int j=0;j<nVezes[1];j++){  
+      for(int i=32;i>=0;i--){
+        if(secuencia1[i] == 1 and i == 14)   {colorMatriz2(cx,cy,4.5,4,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,4,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 13)   {colorMatriz1(cx,cy,2.5,4,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,4,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 12)   {colorMatriz1(cx,cy,1.5,4,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,4,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 10)   {colorMatriz2(cx,cy,4.5,5,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,5,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 9)   {colorMatriz1(cx,cy,2.5,5,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,5,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 8)   {colorMatriz1(cx,cy,1.5,5,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,5,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 6)   {colorMatriz2(cx,cy,4.5,6,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,6,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 5)   {colorMatriz1(cx,cy,2.5,6,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,6,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 4)   {colorMatriz1(cx,cy,1.5,6,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,6,ILI9341_WHITE);}
+        else if(secuencia1[i] == 1 and i == 2)   {colorMatriz2(cx,cy,4.5,7,ILI9341_BLACK); delay(100); colorMatriz2(cx,cy,4.5,7,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 1)   {colorMatriz1(cx,cy,2.5,7,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,2.5,7,ILI9341_WHITE);} 
+        else if(secuencia1[i] == 1 and i == 0)   {colorMatriz1(cx,cy,1.5,7,ILI9341_BLACK); delay(100); colorMatriz1(cx,cy,1.5,7,ILI9341_WHITE);}
         else{}
       }
     }  
