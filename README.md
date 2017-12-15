@@ -7,6 +7,8 @@ Now, the main objective is design and create an attractive, simple and easy inte
 
 The toy has an illuminated keyboard with 32 buttons which size and complexity is adapted to primary education students as well as an TFT touch screen shield to interact and guide. The main element is an Arduino board, for its great importance in education, diversity and adaptability.
 
-**proyectoEntero: This is Garazi's project, so it's the origin project.
-**nuevoProyectoEntero: This is the first version. The repetition is based in the light, so one button can turn on more than once.
-**secondVersion: This is the second version. The repetition is based in the sound, so one button can't turn on more than once.
+**proyectoEntero: This is Garazi's project, so it's the origin project.**
+
+**nuevoProyectoEntero: This is the first version. The repetition is based in the light, so one button can turn on more than once.**
+
+**secondVersion: This is the second version. The repetition is based in the sound, so one button can't turn on more than once.**
