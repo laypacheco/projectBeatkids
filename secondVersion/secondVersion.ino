@@ -1,4 +1,3 @@
-//testeGit
 //#include <TFT.h>
 
 #include <gfxfont.h>
@@ -1194,7 +1193,9 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
   Serial.print("correctoNivel        : ");Serial.println(correctoNivel);
   leerSecuencia(secuencia1, sinLuz); //aparece sequência nos botões e na tela
   delay(5000);
-  passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
+  if(nivel == 1){bloque01Interface(1);} //press (27)
+  else {bloque01Interface(4);} //geral interface
+
 
   //mientras no se pulse terminar
   while(!terminar){
@@ -1222,7 +1223,9 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               trellis.clrLED(31);
               trellis.writeDisplay();
               leerSecuencia(secuencia1, sinLuz); //repetição da sequência
-              passConfirmRepeatInterface(); //interface 05: pass, confirm or repeat
+              delay(5000);
+              if(nivel == 1){bloque01Interface(1);} //press (27)
+              else {bloque01Interface(4);} //geral interface
             }
             //si no es boton de control controles, guardar en array
             if(i!=3 || i!=7 || i!=11 || i!=15|| i!=19|| i!=31 ){
@@ -1231,6 +1234,7 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               if(i==27){
                 bucle =1;
                 usoBucle= true;
+                if (nivel == 1){bloque01Interface(2);}
               }
               posicion= posicion + 1;
               arrayBucle[posicion]= i;
@@ -1253,10 +1257,6 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
               trellis.clrLED(19);
               trellis.writeDisplay();
               terminar=true;
-              //se reproducen las dos secuencias lo pulsado y lo correcto con parpadeo
-              // leerSecuencia(estadoPul, true);
-              // reproducirPulsadores(secuencia1);
-//              correctoNivel = comprobarSecuencia(secuencia1, nivel);
               Serial.println("sale al principal");
                if (comprobarSecuencia(secuencia1, nivel) == false){  
                 correctoNivel = nivel;
@@ -1292,8 +1292,6 @@ void juegoBucleCompleto(int secuencia1[],boolean sinLuz, int nivel){
       }
     }   
   }
-  //bloquesNiveles(correctoNivel);
-  // bloque00(correctoNivel);
   delay(1000);
 }
 
@@ -1307,12 +1305,8 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
   int posicion = 0;
   int correctoNivel;
   leerSecuencia(secuencia1, sinLuz);
-
-  //se encienden los leds del ultimo bloque para que el usuario tenga que realizan los bucles obligatoriamente
-  trellis.setLED(0);
-  trellis.setLED(1);
-  trellis.setLED(2);
-  trellis.writeDisplay();
+  delay(5000);
+  bloque01Interface(4);
 
   //mientras no se pulse terminar
   while(!terminar){
@@ -1328,6 +1322,8 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
             Serial.print(i);
             //leer secuencia otra vez
             if(i==31){
+              showInterface(0); //interface para repetição de sequência
+              delay(2000);
               Serial.println("leer secuencia otra vez");
               //se suma una lectura
               lecturas= lecturas + 1;
@@ -1339,6 +1335,8 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
               trellis.clrLED(31);
               trellis.writeDisplay();
               leerSecuencia(secuencia1, sinLuz);
+              delay(5000);
+              bloque01Interface(4);
             }
             //si no es boton de control controles, guardar en array
             if(i!=3 || i!=7 || i!=11 || i!=15|| i!=19|| i!=31 ){
@@ -1352,6 +1350,8 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
               arrayBucle[posicion]= i;
             } 
             if (i==19){
+              showInterface(2); //interface para conferência das sequências
+              delay(2000);              
               //si se a pulsado el boton 27 es que a realizado la secuencia mediane los botones de bucles
               Serial.print(arrayBucle[1]);
               Serial.print(arrayBucle[31]);
@@ -1366,15 +1366,20 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
               // se reproducen las dos secuencias lo pulsado y lo correcto con parpadeo
               Serial.println("sale al principal");
               if (comprobarSecuencia(secuencia1, nivel) == false){  
-
+                correctoNivel = nivel;
                 terminar= false;
               } else {
                 //mirar secuencia y terminar repeticiones igual a repetir secuencia
                 correctoNivel = 1 + nivel;
               }
-              Serial.println(correctoNivel);
+              Serial.print("nivel       : ");Serial.println(nivel);
+              Serial.print("correctoNivel        : ");Serial.println(correctoNivel);
+              Serial.print("nivel       : ");Serial.println(nivel);
+              bloquesNiveles(correctoNivel);
             }
             if (i==15) {
+              showInterface(1); //interface para pular pro próximo nível
+              delay(2000);
               Serial.print("entra en siguiente");
               reinicioArrayBucle();
               terminar = true;
@@ -1393,8 +1398,6 @@ void juegoRepeticiones(int secuencia1[],boolean sinLuz, int nivel){
       }
     }   
   }
-  bloquesNiveles(correctoNivel);
-  // bloque00(correctoNivel);
   delay(1000);
 }
 
@@ -1747,6 +1750,7 @@ void  guardarArrayBucles(){
         Serial.println(inicioBucle);
         Serial.println(finBucle);
         for (int h =inicioBucle ; h<= finBucle ; h++ ){
+//        for (int h =finBucle ; h<=inicioBucle ; h++ ){
           Serial.println("lo que se copia es por bucle");
           Serial.print(arrayBucle [h]- incremento);
           estadoPul[arrayBucle [h]-incremento]=1;
@@ -1884,7 +1888,6 @@ boolean comprobarSecuencia(int secuencia1[], int nivelJuego){
   delay(100);
   return siguiente;
 }
-
 
 //guardar los led que estan con luz
 void guardarSecuencia(){
@@ -2054,8 +2057,6 @@ void subidaDatos(int nivel,int bloque,int fallos,int secuencia1 [],int estadoPul
   Serial.print("uso de bucle ");
   Serial.println(bucle);
   Serial.println("conecting");
-
-
 }
   
 
@@ -2163,27 +2164,6 @@ void chooseLevelInterface(){
   colorMatriz2(cx,cy,6,6,ILI9341_YELLOW);
   colorMatriz2(cx,cy,6,7,ILI9341_MAROON);
 }
-
-/*void beginGameInterface(){
-  tft.setRotation(1); //rotação da tela
-  tft.fillScreen(ILI9341_BLACK); //cor de fundo
-  tft.setCursor(0, 0);
-  int cx = valueCX(); //variavel x horizontal
-  int cy = valueCY();//variavel y vertical
-  //texto na tela
-  Serial.print(F("Text                     "));
-  tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
-  tft.print("PAY ATTENTION IN THE\nSEQUENCE.");
-  tft.setTextColor(ILI9341_YELLOW); tft.print("CLICK ON THE\nBOTTON TO BEGIN.");
-  //desenho das linhas da matriz
-  drawMatriz(cx, cy, 1.5, ILI9341_RED);
-  drawMatriz(cx, cy, 2.5, ILI9341_GREEN);
-  drawMatriz(cx, cy, 3.5, ILI9341_BLUE);
-  drawMatriz(cx, cy, 4.5, ILI9341_WHITE);
-  //colorindo o botão correto
-  colorMatriz2(cx,cy,5.5,7,ILI9341_YELLOW);
-    
-}*/
 
 void showSequenceInterface(int num){
 tft.setRotation(1); //rotação da tela
@@ -2354,6 +2334,8 @@ void showInterface(int num){
   if (num == 3) {tft.println("YEAH, IT IS EQUAL!!");}
   //4: sequência errada
   if (num == 4) {tft.println("NOT, IT IS NOT EQUAL."); tft.println("LET'S TRY AGAIN!");}
+  //5: loop errado
+  if (num == 5) {tft.println("NOT, IT IS NOT EQUAL."); tft.println("THE REPETITION NUMBER IS NOT CORRECT."); tft.println("LET'S TRY AGAIN!");}
 }  
 
 float valueCX(){ //variavel x horizontal interface
@@ -2363,3 +2345,75 @@ float valueCX(){ //variavel x horizontal interface
 float valueCY(){ //variavel y vertical interface
  return tft.height() / 6;
 }
+
+void bloque01Interface(int numInterface){
+  tft.setRotation(1); //rotação da tela
+  tft.fillScreen(ILI9341_BLACK); //cor de fundo
+  tft.setCursor(0, 0);
+
+  int cx = valueCX(); //variavel x horizontal
+  int cy = valueCY();//variavel y vertical
+
+  if(numInterface == 1){ //27
+    tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);
+    tft.println("PRESS TO INFORMATION THAT YOU ARE STARTING A REPETITION");
+
+    
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,1,ILI9341_WHITE);
+    
+  } else if (numInterface == 2){
+    tft.setTextColor(ILI9341_WHITE);    tft.setTextSize(2);     tft.setTextColor(ILI9341_WHITE); tft.print("PRESS THE REPETITION! ");
+    tft.setTextColor(ILI9341_YELLOW); tft.print("AND AFTER, PRESS HOW MANY TIMES THAT REPETITION HAPPENS!"); 
+    tft.setTextColor(ILI9341_PINK); tft.println("AND THEN, PRESS TO CONFIRM!");
+    
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,2,ILI9341_YELLOW);    
+    colorMatriz2(cx,cy,5.8,3,ILI9341_PINK);
+
+  } else if (numInterface == 3){
+    tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("AND THEN, PRESS TO CONFIRM!");
+    
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+  
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,3,ILI9341_WHITE);
+    
+  } else if(numInterface == 4){
+    tft.setTextColor(ILI9341_WHITE); tft.setTextSize(2); tft.println("PRESS: ");
+    tft.setTextColor(ILI9341_PINK); tft.setTextSize(1); tft.println("TO REPEAT SEQUENCE.");
+    tft.setTextColor(ILI9341_RED); tft.setTextSize(1); tft.println("TO START THE LOOP.");
+    tft.setTextColor(ILI9341_GREEN); tft.setTextSize(1); tft.println("TO SAY HOW MANY LOOPS.");
+    tft.setTextColor(ILI9341_YELLOW); tft.setTextSize(1); tft.println("TO CONFIRM SEQUENCE.");
+    tft.setTextColor(ILI9341_MAROON); tft.setTextSize(1); tft.println("TO PASS LEVEL.");
+
+    //desenho das linhas da matriz
+    drawMatriz(cx, cy, 1.8, ILI9341_RED);
+    drawMatriz(cx, cy, 2.8, ILI9341_GREEN);
+    drawMatriz(cx, cy, 3.8, ILI9341_BLUE);
+    drawMatriz(cx, cy, 4.8, ILI9341_WHITE);
+
+    //colorindo o botão correto
+    colorMatriz2(cx,cy,5.8,0,ILI9341_PINK);
+    colorMatriz2(cx,cy,5.8,1,ILI9341_RED);
+    colorMatriz2(cx,cy,5.8,2,ILI9341_GREEN);
+    colorMatriz2(cx,cy,5.8,3,ILI9341_YELLOW);
+    colorMatriz2(cx,cy,5.8,4,ILI9341_MAROON);
+  }
+}  
